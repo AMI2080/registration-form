@@ -1,0 +1,32 @@
+<div *ngIf="isShown"
+  class="position-fixed vw-100 vh-100 d-flex justify-content-center align-items-center verification-bg p-3 overflow-y-scroll">
+  <div class="rounded bg-white verification-container position-relative p-3">
+    <span class="position-absolute">
+      <span class="close-btn" (click)="hide()">
+        <i class="fa fa-xmark"></i>
+      </span>
+    </span>
+    <img src="assets/img/mail-box.svg" class="img d-block m-auto mt-5 mb-4 pb-2" />
+    <div class="px-3 text-center">
+      <div class="h4 text-secondary fw-semibold">Verification Code</div>
+      <div class="text-body-tertiary mb-5">
+        Please enter the verification code sent to your phone number ** 34
+      </div>
+      <div class="row mb-4 pb-2">
+        <div class="col-3" *ngFor="let input of [].constructor(4); let i = index">
+          <input type="text" class="form-control form-control-xl text-center" maxlength="1" />
+        </div>
+      </div>
+      <div class="text-body-tertiary mb-4 pb-3">
+        The code will be sent again within
+        <span class="text-info fw-semibold">{{ countDown }}</span>
+        seconds
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-3 col-6">
+        <button class="btn btn-primary py-3 mb-4 w-100">VERIFY</button>
+      </div>
+    </div>
+  </div>
+</div>

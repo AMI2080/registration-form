@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { StepOneComponent } from './components/step-one/step-one.component';
 import { StepTwoComponent } from './components/step-two/step-two.component';
 import { CompleteComponent } from './components/complete/complete.component';
+import { VerificationComponent } from './components/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CompleteComponent } from './components/complete/complete.component';
     StepOneComponent,
     StepTwoComponent,
     CompleteComponent,
+    VerificationComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, NgSelectModule],
   providers: [],
