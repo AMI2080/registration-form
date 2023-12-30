@@ -1,0 +1,28 @@
+.main-container {
+  background-color: #F5F6F9;
+
+  .img-cover {
+    object-fit: cover;
+    width: 100%;
+    min-height: 100%;
+
+    // height: 800px;
+
+    // Temp
+    // width: 100;
+    // margin-right: -10rem;
+    // float: right;
+  }
+
+  .over-img {
+    background: linear-gradient(180deg, transparent 30%, rgba(99, 92, 168, 1) 100%);
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+
+
+  // .phone-label {
+  //   max-height: 16px;
+  // }
+}

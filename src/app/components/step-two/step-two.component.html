@@ -1,0 +1,135 @@
+<div class="container-fluid position-relative">
+  <div class="text-end text-body-tertiary position-absolute p-4" style="top: 0; right: 0; z-index: 1;">
+    Having troubles? <a href="#" class="text-primary fw-bolder">Get Help</a>
+  </div>
+  <div class="row main-container">
+    <div class="col-lg-4 p-0 position-relative">
+      <img src="assets/img/bg.svg" class="img-cover" />
+    </div>
+    <div class="col-lg-8 p-lg-5 pe-lg-2 p-xl-5">
+      <div class="p-0 py-5 px-3 pt-lg-5 ps-lg-5">
+        <div class="row ms-xl-5 p-xl-2">
+          <div class="col-12 mb-5">
+            <div class="h2 text-secondary">Choose the type of business</div>
+            <div class="text-secondary">
+              To get start tell us what type of Business you are going to incorporate and name
+            </div>
+          </div>
+          <div class="form-inputs row pe-xl-5 me-xl-5">
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="business_name" class="form-label text-secondary text-sm">Business Name</label>
+                <input type="text" class="form-control form-control-xl border-danger" id="business_name"
+                  placeholder="Enter business name" />
+                <div class="text-danger text-xs text-end mt-1">error</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="mb-3">
+                <label for="business_type" class="form-label text-secondary text-sm">Business Type</label>
+                <div class="row">
+                  <div class="col-3">
+                    <label for="type-1" class="border border-info-subtle w-100 p-2 rounded">
+                      <input type="checkbox" id="type-1" class="d-none" />
+                      <img src="assets/img/scissor.svg" class="type-unchecked" />
+                      <!-- <img src="assets/img/scissor-c.svg" class="type-checked" /> -->
+                      <span class="text-secondary text-sm ms-2">Salon</span>
+                    </label>
+                  </div>
+                  <div class="col-3">
+                    <label for="type-2" class="border border-info-subtle w-100 p-2 rounded">
+                      <input type="checkbox" id="type-2" class="d-none" />
+                      <img src="assets/img/gym.svg" class="type-unchecked" />
+                      <!-- <img src="assets/img/gym-c.svg" class="type-checked" /> -->
+                      <span class="text-secondary text-sm ms-2">Gym</span>
+                    </label>
+                  </div>
+                  <div class="col-3">
+                    <label for="type-3" class="border border-info-subtle w-100 p-2 rounded">
+                      <input type="checkbox" id="type-3" class="d-none" />
+                      <img src="assets/img/spa.svg" class="type-unchecked" />
+                      <!-- <img src="assets/img/spa-c.svg" class="type-checked" /> -->
+                      <span class="text-secondary text-sm ms-2">Spa</span>
+                    </label>
+                  </div>
+                  <div class="col-3">
+                    <label for="type-4" class="border border-info-subtle w-100 p-2 rounded">
+                      <input type="checkbox" id="type-4" class="d-none" />
+                      <img src="assets/img/clinic.svg" class="type-unchecked" />
+                      <!-- <img src="assets/img/clinic-c.svg" class="type-checked" /> -->
+                      <span class="text-secondary text-sm ms-2">Clinic</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="text-danger text-xs text-end mt-1">error</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label text-secondary text-sm">Governorate</label>
+                <ng-select class="mb-3" [items]="[{id: 1, name: 'red'}, {id: 2, name: 'yellow'}]" bindLabel="name"
+                  bindValue="id" placeholder="Select Governorate">
+                </ng-select>
+                <div class="text-danger text-xs text-end mt-1">error</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label text-secondary text-sm">District</label>
+                <ng-select class="mb-3" [items]="[{id: 1, name: 'red'}, {id: 2, name: 'yellow'}]" bindLabel="name"
+                  bindValue="id" placeholder="Select Governorate">
+                </ng-select>
+                <div class="text-danger text-xs text-end mt-1">error</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label class="form-label text-secondary text-sm">How did you know us?</label>
+                <ng-select class="mb-3" [items]="[{id: 1, name: 'red'}, {id: 2, name: 'yellow'}]" bindLabel="name"
+                  bindValue="id" placeholder="Select One">
+                  <ng-template ng-label-tmp let-item="item">
+                    <div class="text-secondary">
+                      <i class="fab fa-facebook-f me-2"></i>
+                      <span>{{item.name}}</span>
+                    </div>
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-index="index">
+                    <div class="text-secondary">
+                      <i class="fab fa-facebook-f me-2"></i>
+                      <span>{{item.name}}</span>
+                    </div>
+                  </ng-template>
+                </ng-select>
+                <div class="text-danger text-xs text-end mt-1">error</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="where_know" class="form-label text-secondary text-sm">
+                  Are you currently using system ?
+                  <i class="far fa-question-circle"></i>
+                </label>
+                <div class="mb-3">
+                  <input type="radio" name="using-system" id="using-system-yes" />
+                  <label for="using-system-yes" class="ps-3 me-4 text-secondary text-sm">Yes</label>
+                  <input type="radio" name="using-system" id="using-system-no" />
+                  <label for="using-system-no" class="ps-3 me-4 text-secondary text-sm">No</label>
+                </div>
+                <div class="text-danger text-xs text-end mt-1">error</div>
+              </div>
+            </div>
+            <div class="offset-md-7 col-md-5 text-end">
+              <div class="d-grid" style="min-height: 100%;">
+                <button class="btn btn-primary block mb-3">
+                  <span class="float-start">CREATE ACCOUNT</span>
+                  <span class="ms-2 float-end">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
