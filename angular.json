@@ -30,7 +30,10 @@
               "@ng-select/ng-select/themes/default.theme.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/@lottiefiles/lottie-player/dist/lottie-player.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -83,7 +86,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", "src/assets/animations"],
             "styles": ["src/styles.scss"],
             "scripts": []
           }
