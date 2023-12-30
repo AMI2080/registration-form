@@ -9,6 +9,7 @@ import { StepOneComponent } from './components/step-one/step-one.component';
 import { StepTwoComponent } from './components/step-two/step-two.component';
 import { CompleteComponent } from './components/complete/complete.component';
 import { VerificationComponent } from './components/verification/verification.component';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { VerificationComponent } from './components/verification/verification.co
     StepTwoComponent,
     CompleteComponent,
     VerificationComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
