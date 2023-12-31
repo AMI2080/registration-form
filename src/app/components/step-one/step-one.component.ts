@@ -1,5 +1,13 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { VerificationComponent } from '../verification/verification.component';
 
 interface Quote {
   auther: string;
@@ -12,7 +20,21 @@ interface Quote {
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.scss'],
 })
-export class StepOneComponent {
+export class StepOneComponent implements OnInit {
+  @ViewChild('verificationCodeDialogContainer', {
+    static: true,
+    read: ViewContainerRef,
+  })
+  public verificationCodeDialogContainer!: ViewContainerRef;
+
+  public isShownPassword: boolean = false;
+
+  public stepOneForm: FormGroup;
+
+  public validationChecked: boolean = false;
+
+  public sendingCode: boolean = false;
+
   public quotes: Quote[] = [
     {
       auther: 'Salma Mohamed',
@@ -34,13 +56,14 @@ export class StepOneComponent {
     },
   ];
 
-  public isShownPassword: boolean = false;
+  @HostListener('document:keyup', ['$event'])
+  public onKeyUp(event: KeyboardEvent) {
+    if (event.code === 'Escape') {
+      this.verificationCodeDialogContainer?.clear();
+    }
+  }
 
-  public stepOneForm: FormGroup;
-
-  public validationChecked: boolean = false;
-
-  public constructor() {
+  public constructor(private authService: AuthService) {
     this.stepOneForm = new FormGroup({
       first_name: new FormControl(null, [
         Validators.required,
@@ -66,8 +89,37 @@ export class StepOneComponent {
     });
   }
 
+  public ngOnInit(): void {
+    this.showVerificationCodeDialog();
+  }
+
+  private showVerificationCodeDialog() {
+    const component = this.verificationCodeDialogContainer.createComponent(
+      VerificationComponent
+    );
+
+    component.instance.countCompleted.subscribe((isCompleted: boolean) => {
+      if (isCompleted) {
+        component.destroy();
+      }
+    });
+  }
+
   public submit(): void {
-    console.log(this.stepOneForm.controls);
+    this.validationChecked = true;
+    if (this.stepOneForm.valid) {
+      this.sendingCode = true;
+      this.authService
+        .registrationStepOne(this.stepOneForm.value)
+        .subscribe((response) => {
+          if (response === true) {
+            this.sendingCode = false;
+            this.showVerificationCodeDialog();
+          } else {
+            // failed step one
+          }
+        });
+    }
   }
 
   public hasError(inputName: string, validator: string): boolean {
