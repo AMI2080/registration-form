@@ -1,13 +1,13 @@
 import {
   Component,
   HostListener,
-  OnInit,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { VerificationComponent } from '../verification/verification.component';
+import { Router } from '@angular/router';
 
 interface Quote {
   auther: string;
@@ -20,7 +20,7 @@ interface Quote {
   templateUrl: './step-one.component.html',
   styleUrls: ['./step-one.component.scss'],
 })
-export class StepOneComponent implements OnInit {
+export class StepOneComponent {
   @ViewChild('verificationCodeDialogContainer', {
     static: true,
     read: ViewContainerRef,
@@ -63,7 +63,7 @@ export class StepOneComponent implements OnInit {
     }
   }
 
-  public constructor(private authService: AuthService) {
+  public constructor(private authService: AuthService, private router: Router) {
     this.stepOneForm = new FormGroup({
       first_name: new FormControl(null, [
         Validators.required,
@@ -76,7 +76,7 @@ export class StepOneComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
       phone: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[0-9]+'),
+        Validators.pattern('[0-9]{8,13}'),
       ]),
       password: new FormControl(null, [
         Validators.required,
@@ -89,18 +89,26 @@ export class StepOneComponent implements OnInit {
     });
   }
 
-  public ngOnInit(): void {
-    this.showVerificationCodeDialog();
-  }
-
   private showVerificationCodeDialog() {
-    const component = this.verificationCodeDialogContainer.createComponent(
-      VerificationComponent
-    );
+    const verificationComponent =
+      this.verificationCodeDialogContainer.createComponent(
+        VerificationComponent
+      );
 
-    component.instance.countCompleted.subscribe((isCompleted: boolean) => {
-      if (isCompleted) {
-        component.destroy();
+    verificationComponent.instance.phoneNumber =
+      this.stepOneForm.get('phone').value;
+
+    verificationComponent.instance.close.subscribe((isClosed: boolean) => {
+      if (isClosed) {
+        verificationComponent.destroy();
+      }
+    });
+
+    verificationComponent.instance.validateCode.subscribe((isValidCode) => {
+      if (isValidCode) {
+        this.router.navigate(['step-two']);
+      } else {
+        // faild verification code
       }
     });
   }
