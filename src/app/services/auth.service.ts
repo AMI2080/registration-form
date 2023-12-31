@@ -24,6 +24,16 @@ export class AuthService {
     });
   }
 
+  public registrationStepTwo(data: any[]): Observable<boolean> {
+    return new Observable((observer) => {
+      console.log(data);
+      setTimeout(() => {
+        this.stepTwoValue = data;
+        observer.next(true);
+      }, this.resposeTime * 1000);
+    });
+  }
+
   public checkVerificationCode(code: string): Observable<boolean> {
     return new Observable((observer) => {
       setTimeout(() => {
