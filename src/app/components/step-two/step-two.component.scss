@@ -21,6 +21,40 @@
     left: 0;
   }
 
+  .type-label {
+    cursor: pointer;
+
+    &:has(input[type="checkbox"]:checked) {
+      background-color: #F0F1F7;
+    }
+  }
+
+  input[type="checkbox"] {
+    &:not(:checked) {
+      &+.type-logo .type-checked {
+        display: none;
+      }
+
+      &+.type-logo .type-unchecked {
+        display: inline-block;
+      }
+    }
+
+
+    &:checked {
+      &+.type-logo .type-checked {
+        display: inline-block;
+      }
+
+      &+.type-logo .type-unchecked {
+        display: none;
+      }
+    }
+  }
+
+  // input[type="checkbox"]+.type-unchecked {
+  //   display: none;
+  // }
 
   // .phone-label {
   //   max-height: 16px;

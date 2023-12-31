@@ -15,92 +15,85 @@
               To get start tell us what type of Business you are going to incorporate and name
             </div>
           </div>
-          <div class="form-inputs row pe-xl-5 me-xl-5">
+          <form [formGroup]="stepTwoForm" (submit)="submit()" class="form-inputs position-relative row pe-xl-5 me-xl-5">
+            <ng-container *ngIf="isSubmiting">
+              <div class="position-absolute w-100 h-100 bg-dark opacity-25 rounded" style="z-index: 10;"></div>
+              <div class="position-absolute d-flex justify-content-center align-items-center w-100 h-100" style="z-index: 10; cursor: not-allowed">
+                <app-spinner></app-spinner>
+              </div>
+            </ng-container>
             <div class="col-12">
               <div class="mb-3">
                 <label for="business_name" class="form-label text-secondary text-sm">Business Name</label>
-                <input type="text" class="form-control form-control-xl border-danger" id="business_name"
+                <input type="text" class="form-control form-control-xl" id="business_name"
+                  [ngClass]="{'border-danger': hasError('business_name')}" formControlName="business_name"
                   placeholder="Enter business name" />
-                <div class="text-danger text-xs text-end mt-1">error</div>
+                <div *ngIf="hasError('business_name')" class="text-danger text-xs text-end mt-1">Business name is
+                  required</div>
               </div>
             </div>
             <div class="col-12">
               <div class="mb-3">
                 <label for="business_type" class="form-label text-secondary text-sm">Business Type</label>
                 <div class="row">
-                  <div class="col-3">
-                    <label for="type-1" class="border border-info-subtle w-100 p-2 rounded">
-                      <input type="checkbox" id="type-1" class="d-none" />
-                      <img src="assets/img/scissor.svg" class="type-unchecked" />
-                      <!-- <img src="assets/img/scissor-c.svg" class="type-checked" /> -->
-                      <span class="text-secondary text-sm ms-2">Salon</span>
-                    </label>
-                  </div>
-                  <div class="col-3">
-                    <label for="type-2" class="border border-info-subtle w-100 p-2 rounded">
-                      <input type="checkbox" id="type-2" class="d-none" />
-                      <img src="assets/img/gym.svg" class="type-unchecked" />
-                      <!-- <img src="assets/img/gym-c.svg" class="type-checked" /> -->
-                      <span class="text-secondary text-sm ms-2">Gym</span>
-                    </label>
-                  </div>
-                  <div class="col-3">
-                    <label for="type-3" class="border border-info-subtle w-100 p-2 rounded">
-                      <input type="checkbox" id="type-3" class="d-none" />
-                      <img src="assets/img/spa.svg" class="type-unchecked" />
-                      <!-- <img src="assets/img/spa-c.svg" class="type-checked" /> -->
-                      <span class="text-secondary text-sm ms-2">Spa</span>
-                    </label>
-                  </div>
-                  <div class="col-3">
-                    <label for="type-4" class="border border-info-subtle w-100 p-2 rounded">
-                      <input type="checkbox" id="type-4" class="d-none" />
-                      <img src="assets/img/clinic.svg" class="type-unchecked" />
-                      <!-- <img src="assets/img/clinic-c.svg" class="type-checked" /> -->
-                      <span class="text-secondary text-sm ms-2">Clinic</span>
+                  <div *ngFor="let control of stepTwoForm.get('business_type')?.controls; let i = index" class="col-3"
+                    formArrayName="business_type">
+                    <label for="{{ 'type-' + businessType[i].name }}"
+                      class="type-label border border-info-subtle w-100 p-2 rounded">
+                      <input type="checkbox" id="{{ 'type-' + businessType[i].name }}"
+                        [ng-true-value]="businessType[i].name" [formControlName]="i" class="d-none" />
+                      <span class="type-logo">
+                        <img [src]="businessType[i].uncheckedImg" class="type-unchecked" />
+                        <img [src]="businessType[i].checkedImg" class="type-checked" />
+                      </span>
+                      <span class="text-secondary text-sm ms-2">{{ businessType[i].name }}</span>
                     </label>
                   </div>
                 </div>
-                <div class="text-danger text-xs text-end mt-1">error</div>
+                <div *ngIf="hasError('business_type')" class="text-danger text-xs text-end mt-1">Slect business type
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-3">
                 <label class="form-label text-secondary text-sm">Governorate</label>
-                <ng-select class="mb-3" [items]="[{id: 1, name: 'red'}, {id: 2, name: 'yellow'}]" bindLabel="name"
-                  bindValue="id" placeholder="Select Governorate">
+                <ng-select class="mb-3" [items]="[{id: 1, name: 'Cairo'}, {id: 2, name: 'Giza'}]" bindLabel="name"
+                  bindValue="id" formControlName="governorate" placeholder="Select Governorate">
                 </ng-select>
-                <div class="text-danger text-xs text-end mt-1">error</div>
+                <div *ngIf="hasError('governorate')" class="text-danger text-xs text-end mt-1">Select a vailed
+                  governorate</div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-3">
                 <label class="form-label text-secondary text-sm">District</label>
-                <ng-select class="mb-3" [items]="[{id: 1, name: 'red'}, {id: 2, name: 'yellow'}]" bindLabel="name"
-                  bindValue="id" placeholder="Select Governorate">
+                <ng-select class="mb-3"
+                  [items]="[{id: 1, name: 'Helwan'}, {id: 2, name: 'Nasr City'}, {id: 2, name: 'New Cairo'}]"
+                  bindLabel="name" bindValue="id" formControlName="district" placeholder="Select District">
                 </ng-select>
-                <div class="text-danger text-xs text-end mt-1">error</div>
+                <div *ngIf="hasError('district')" class="text-danger text-xs text-end mt-1">Select a vailed district
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-3">
                 <label class="form-label text-secondary text-sm">How did you know us?</label>
-                <ng-select class="mb-3" [items]="[{id: 1, name: 'red'}, {id: 2, name: 'yellow'}]" bindLabel="name"
-                  bindValue="id" placeholder="Select One">
+                <ng-select class="mb-3" [items]="PlaceList" bindValue="id" formControlName="place"
+                  placeholder="Select One">
                   <ng-template ng-label-tmp let-item="item">
                     <div class="text-secondary">
-                      <i class="fab fa-facebook-f me-2"></i>
-                      <span>{{item.name}}</span>
+                      <i class="me-2" [ngClass]="item.icon"></i>
+                      <span>{{ item.name }}</span>
                     </div>
                   </ng-template>
                   <ng-template ng-option-tmp let-item="item" let-index="index">
                     <div class="text-secondary">
-                      <i class="fab fa-facebook-f me-2"></i>
-                      <span>{{item.name}}</span>
+                      <i class="me-2" [ngClass]="item.icon"></i>
+                      <span>{{ item.name }}</span>
                     </div>
                   </ng-template>
                 </ng-select>
-                <div class="text-danger text-xs text-end mt-1">error</div>
+                <div *ngIf="hasError('place')" class="text-danger text-xs text-end mt-1">Select a vailed value</div>
               </div>
             </div>
             <div class="col-md-6">
@@ -110,17 +103,20 @@
                   <i class="far fa-question-circle"></i>
                 </label>
                 <div class="mb-3">
-                  <input type="radio" name="using-system" id="using-system-yes" />
+                  <input type="radio" value="yes" name="using_system" id="using-system-yes"
+                    formControlName="using_system" />
                   <label for="using-system-yes" class="ps-3 me-4 text-secondary text-sm">Yes</label>
-                  <input type="radio" name="using-system" id="using-system-no" />
+                  <input type="radio" value="no" name="using_system" id="using-system-no"
+                    formControlName="using_system" />
                   <label for="using-system-no" class="ps-3 me-4 text-secondary text-sm">No</label>
                 </div>
-                <div class="text-danger text-xs text-end mt-1">error</div>
+                <div *ngIf="hasError('using_system')" class="text-danger text-xs text-end mt-1">Select a vailed value
+                </div>
               </div>
             </div>
             <div class="offset-md-7 col-md-5 text-end">
               <div class="d-grid" style="min-height: 100%;">
-                <button class="btn btn-primary block mb-3">
+                <button type="submit" class="btn btn-primary block mb-3">
                   <span class="float-start">CREATE ACCOUNT</span>
                   <span class="ms-2 float-end">
                     <i class="fas fa-long-arrow-alt-right"></i>
@@ -128,7 +124,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
