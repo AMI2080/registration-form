@@ -86,7 +86,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets", "src/assets/animations"],
+            "assets": ["src/assets", "src/assets/animations"],
             "styles": ["src/styles.scss"],
             "scripts": []
           }
