@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private resposeTime: number = 2; // In seconds
+
   private stepOneValue: any[];
+
+  private verificationCode: string;
 
   private stepTwoValue: any[];
 
@@ -16,7 +20,20 @@ export class AuthService {
       setTimeout(() => {
         this.stepOneValue = data;
         observer.next(true);
-      }, 2000);
+      }, this.resposeTime * 1000);
+    });
+  }
+
+  public checkVerificationCode(code: string): Observable<boolean> {
+    return new Observable((observer) => {
+      setTimeout(() => {
+        if (code.match(/^[0-9]{4}$/)) {
+          observer.next(true);
+          this.verificationCode = code;
+        } else {
+          observer.next(false);
+        }
+      }, this.resposeTime * 1000);
     });
   }
 }
