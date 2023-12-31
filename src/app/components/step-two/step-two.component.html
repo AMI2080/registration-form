@@ -3,13 +3,27 @@
     Having troubles? <a href="#" class="text-primary fw-bolder">Get Help</a>
   </div>
   <div class="row main-container">
-    <div class="col-lg-4 p-0 position-relative">
-      <img src="assets/img/bg.svg" class="img-cover" />
+    <div class="col-lg-4 p-0 position-relative h-100">
+      <img src="assets/img/bg.jpg" class="img-cover" />
+      <div class="m-5 p-5 position-absolute top-0">
+        <img src="assets/img/glamera.svg" class="mb-3" />
+        <div class="h2 fw-semibold text-white mt-5 pt-5">
+          Few clicks away from creating your business
+        </div>
+        <div class="text-white opacity-75 mt-5 pt-5">
+          Start your business in minutes. save time and money
+        </div>
+      </div>
     </div>
     <div class="col-lg-8 p-lg-5 pe-lg-2 p-xl-5">
-      <div class="p-0 py-5 px-3 pt-lg-5 ps-lg-5">
+      <div class="p-0 pb-5 px-3 pt-lg-5">
         <div class="row ms-xl-5 p-xl-2">
           <div class="col-12 mb-5">
+            <div class="ms-2 pb-5 text-secondary">
+              <a [routerLink]="['', 'step-one']">
+                <i class="fas fa-long-arrow-alt-left"></i>
+              </a>
+            </div>
             <div class="h2 text-secondary">Choose the type of business</div>
             <div class="text-secondary">
               To get start tell us what type of Business you are going to incorporate and name
@@ -18,7 +32,8 @@
           <form [formGroup]="stepTwoForm" (submit)="submit()" class="form-inputs position-relative row pe-xl-5 me-xl-5">
             <ng-container *ngIf="isSubmiting">
               <div class="position-absolute w-100 h-100 bg-dark opacity-25 rounded" style="z-index: 10;"></div>
-              <div class="position-absolute d-flex justify-content-center align-items-center w-100 h-100" style="z-index: 10; cursor: not-allowed">
+              <div class="position-absolute d-flex justify-content-center align-items-center w-100 h-100"
+                style="z-index: 10; cursor: not-allowed">
                 <app-spinner></app-spinner>
               </div>
             </ng-container>
